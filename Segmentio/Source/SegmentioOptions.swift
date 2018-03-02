@@ -49,16 +49,26 @@ public struct SegmentioState {
     var backgroundColor: UIColor
     var titleFont: UIFont
     var titleTextColor: UIColor
+    var titleTextColors: [UIColor]?
     
     public init(
         backgroundColor: UIColor = .clear,
         titleFont: UIFont = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize),
-        titleTextColor: UIColor = .black) {
+        titleTextColor: UIColor = .black,
+        titleTextColors: [UIColor]? = nil) {
         self.backgroundColor = backgroundColor
         self.titleFont = titleFont
         self.titleTextColor = titleTextColor
+        self.titleTextColors = titleTextColors
     }
     
+    public func getTitleColor(for index: Int) -> UIColor {
+        if (index > -1 && self.titleTextColors != nil && index < self.titleTextColors!.count) {
+            return self.titleTextColors![index]
+        } else {
+            return self.titleTextColor
+        }
+    }
 }
 
 // MARK: - Horizontal separator
@@ -116,15 +126,24 @@ public struct SegmentioIndicatorOptions {
     var ratio: CGFloat
     var height: CGFloat
     var color: UIColor
+    var colors: [UIColor]?
     
     public init(type: SegmentioIndicatorType = .bottom, ratio: CGFloat = 1, height: CGFloat = 2,
-                color: UIColor = .orange) {
+                color: UIColor = .orange, colors: [UIColor]? = nil) {
         self.type = type
         self.ratio = ratio
         self.height = height
         self.color = color
+        self.colors = colors
     }
     
+    public func getIndicatorColor(for index: Int) -> UIColor {
+        if (index > -1 && self.colors != nil && index < self.colors!.count) {
+            return self.colors![index]
+        } else {
+            return self.color
+        }
+    }
 }
 
 // MARK: - Position

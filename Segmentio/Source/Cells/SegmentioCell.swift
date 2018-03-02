@@ -18,6 +18,7 @@ class SegmentioCell: UICollectionViewCell {
     var segmentImageView: UIImageView?
     var containerView: UIView?
     var imageContainerView: UIView?
+    var segmentIndex: Int = -1
     
     var topConstraint: NSLayoutConstraint?
     var bottomConstraint: NSLayoutConstraint?
@@ -42,11 +43,11 @@ class SegmentioCell: UICollectionViewCell {
                 let selectedState = options.states.selectedState
                 
                 if style.isWithText() {
-                    let highlightedTitleTextColor = cellSelected ? selectedState.titleTextColor
-                        : defaultState.titleTextColor
+                    let highlightedTitleTextColor = cellSelected ? selectedState.getTitleColor(for: self.segmentIndex)
+                        : defaultState.getTitleColor(for: self.segmentIndex)
                     let highlightedTitleFont = cellSelected ? selectedState.titleFont : defaultState.titleFont
                     
-                    segmentTitleLabel?.textColor = isHighlighted ? highlightedState.titleTextColor
+                    segmentTitleLabel?.textColor = isHighlighted ? highlightedState.getTitleColor(for: self.segmentIndex)
                         : highlightedTitleTextColor
                     segmentTitleLabel?.font = isHighlighted ? highlightedState.titleFont : highlightedTitleFont
                 }
@@ -116,9 +117,10 @@ class SegmentioCell: UICollectionViewCell {
     
     // MARK: - Configure
     
-    func configure(content: SegmentioItem, style: SegmentioStyle, options: SegmentioOptions, isLastCell: Bool) {
+    func configure(content: SegmentioItem, style: SegmentioStyle, options: SegmentioOptions, isLastCell: Bool, index: Int) {
         self.options = options
         self.style = style
+        self.segmentIndex = index
         setupContent(content: content)
         if let indicatorOptions = self.options.indicatorOptions {
             setupConstraint(indicatorOptions: indicatorOptions)
@@ -139,7 +141,7 @@ class SegmentioCell: UICollectionViewCell {
         let defaultState = options.states.defaultState
         
         if style.isWithText() {
-            segmentTitleLabel?.textColor = selected ? selectedState.titleTextColor : defaultState.titleTextColor
+            segmentTitleLabel?.textColor = selected ? selectedState.getTitleColor(for: self.segmentIndex) : defaultState.getTitleColor(for: self.segmentIndex)
             segmentTitleLabel?.font = selected ? selectedState.titleFont : defaultState.titleFont
             segmentTitleLabel?.minimumScaleFactor = 0.5
             segmentTitleLabel?.adjustsFontSizeToFitWidth = true
@@ -290,7 +292,7 @@ class SegmentioCell: UICollectionViewCell {
             segmentTitleLabel?.textAlignment = options.labelTextAlignment
             segmentTitleLabel?.numberOfLines = options.labelTextNumberOfLines
             let defaultState = options.states.defaultState
-            segmentTitleLabel?.textColor = defaultState.titleTextColor
+            segmentTitleLabel?.textColor = defaultState.getTitleColor(for: self.segmentIndex)
             segmentTitleLabel?.font = defaultState.titleFont
             segmentTitleLabel?.text = content.title
             segmentTitleLabel?.minimumScaleFactor = 0.5

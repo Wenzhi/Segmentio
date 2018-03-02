@@ -168,7 +168,7 @@ open class Segmentio: UIView {
             if let indicatorLayer = indicatorLayer {
                 setupShapeLayer(
                     shapeLayer: indicatorLayer,
-                    backgroundColor: indicatorOptions.color,
+                    backgroundColor: indicatorOptions.getIndicatorColor(for: self.selectedSegmentioIndex),
                     height: indicatorOptions.height,
                     sublayer: layer
                 )
@@ -341,6 +341,15 @@ open class Segmentio: UIView {
         if let indicatorLayer = indicatorLayer, let options = segmentioOptions.indicatorOptions {
             let item = itemInSuperview(ratio: options.ratio)
             let context = contextForItem(item)
+//            indicatorLayer.fillColor = options.getIndicatorColor(for: self.selectedSegmentioIndex).cgColor
+            indicatorLayer.strokeColor = options.getIndicatorColor(for: self.selectedSegmentioIndex).cgColor
+           
+            let fillColorAnimation = CABasicAnimation(keyPath: "fillColor")
+            fillColorAnimation.toValue = options.getIndicatorColor(for: self.selectedSegmentioIndex).cgColor
+            fillColorAnimation.duration = segmentioOptions.animationDuration
+            fillColorAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            indicatorLayer.add(fillColorAnimation, forKey: "fillColorAnimation")
+
 
             let points = Points(
                 context: context,
@@ -358,7 +367,8 @@ open class Segmentio: UIView {
                 endPoint: points.endPoint,
                 animated: true
             )
-        }
+            
+                    }
         
         if let selectedLayer = selectedLayer {
             let item = itemInSuperview()
@@ -619,7 +629,8 @@ extension Segmentio: UICollectionViewDataSource {
             content: content,
             style: segmentioStyle,
             options: segmentioOptions,
-            isLastCell: indexPath.row == segmentioItems.count - 1
+            isLastCell: indexPath.row == segmentioItems.count - 1,
+            index: indexPath.row
         )
         
         cell.configure(
