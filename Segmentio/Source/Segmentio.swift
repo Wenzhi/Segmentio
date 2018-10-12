@@ -347,7 +347,7 @@ open class Segmentio: UIView {
             let fillColorAnimation = CABasicAnimation(keyPath: "fillColor")
             fillColorAnimation.toValue = options.getIndicatorColor(for: self.selectedSegmentioIndex).cgColor
             fillColorAnimation.duration = segmentioOptions.animationDuration
-            fillColorAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            fillColorAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
             indicatorLayer.add(fillColorAnimation, forKey: "fillColorAnimation")
 
 

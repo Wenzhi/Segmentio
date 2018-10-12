@@ -208,7 +208,7 @@ public struct SegmentioOptions {
     var horizontalSeparatorOptions: SegmentioHorizontalSeparatorOptions?
     var verticalSeparatorOptions: SegmentioVerticalSeparatorOptions?
     var indicatorOptions: SegmentioIndicatorOptions?
-    var imageContentMode: UIViewContentMode
+    var imageContentMode: UIView.ContentMode
     var labelTextAlignment: NSTextAlignment
     var labelTextNumberOfLines: Int
     var states: SegmentioStates
@@ -220,7 +220,7 @@ public struct SegmentioOptions {
                 indicatorOptions: SegmentioIndicatorOptions? = SegmentioIndicatorOptions(),
                 horizontalSeparatorOptions: SegmentioHorizontalSeparatorOptions? = SegmentioHorizontalSeparatorOptions(),
                 verticalSeparatorOptions: SegmentioVerticalSeparatorOptions? = SegmentioVerticalSeparatorOptions(),
-                imageContentMode: UIViewContentMode = .center,
+                imageContentMode: UIView.ContentMode = .center,
                 labelTextAlignment: NSTextAlignment = .center,
                 labelTextNumberOfLines: Int = 0,
                 segmentStates: SegmentioStates = SegmentioStates(defaultState: SegmentioState(),
