@@ -333,7 +333,6 @@ open class Segmentio: UIView {
         if let indicatorLayer = indicatorLayer, let options = segmentioOptions.indicatorOptions {
             let item = itemInSuperview(ratio: options.ratio)
             
-            let context = contextForItem(item)
 //            indicatorLayer.fillColor = options.getIndicatorColor(for: self.selectedSegmentioIndex).cgColor
             indicatorLayer.strokeColor = options.getIndicatorColor(for: self.selectedSegmentioIndex).cgColor
            
